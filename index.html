@@ -72,13 +72,58 @@ h1{font-size:23px;text-align:center;margin-bottom:3px;color:#fff}
   <a href="https://www.instagram.com/uju_room_official/" target="_blank" rel="noopener">📸 인스타그램</a>
   <a href="https://www.youtube.com/channel/UCzw2sFlZSqkVG3_tsRD5eMA" target="_blank" rel="noopener">▶️ 유튜브</a>
 </div>
+
+<section id="analytics-choice" aria-label="방문 통계 설정" style="margin:24px auto;max-width:640px;padding:14px;border:1px solid #666;border-radius:12px">
+  <p style="margin:0 0 10px">방문 통계 수집에 동의하시나요? 동의하면 Google Analytics가 쿠키를 사용해 방문과 상품 클릭을 분석합니다. 거부해도 상품 링크는 그대로 이용할 수 있습니다.</p>
+  <button type="button" id="analytics-accept">통계 수집 동의</button>
+  <button type="button" id="analytics-reject">거부</button>
+  <details><summary>통계 수집 안내</summary><p>운영: 우주룸. 목적: 사이트 방문 및 상품 링크 이용 현황 분석. 항목: 페이지 조회, 상품 번호·링크 종류, 기기·브라우저 및 대략적 지역 등 Google Analytics 기본 측정정보. 이름·이메일·상품 검색어는 전송하지 않습니다. 통계 처리는 Google Analytics를 이용하며 동의 시에만 측정 코드를 불러옵니다. 아래 버튼으로 언제든 수집을 중단할 수 있습니다.</p><a href="https://policies.google.com/technologies/partner-sites?hl=ko" target="_blank" rel="noopener">Google의 정보 처리 안내</a></details>
+</section>
+<button type="button" id="analytics-settings" style="display:block;margin:16px auto">통계 수집 설정</button>
+<script>
+(function(){
+  var id="G-SKYSYDCE4V", key='uzoroom-analytics-consent-v1', started=false, consent=null;
+  var panel=document.getElementById('analytics-choice');
+  function read(){try{return localStorage.getItem(key);}catch(e){return null;}}
+  function save(v){consent=v;try{localStorage.setItem(key,v);}catch(e){}}
+  function start(){
+    window['ga-disable-'+id]=false;
+    if(started){window.gtag('consent','update',{analytics_storage:'granted'});return;}
+    started=true;window.dataLayer=window.dataLayer||[];
+    window.gtag=function(){window.dataLayer.push(arguments);};
+    window.gtag('consent','default',{analytics_storage:'granted',ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied'});
+    window.gtag('js',new Date());
+    window.gtag('config',id,{page_location:'https://wntjqdl1215-hash.github.io/uzoroom-links/',page_referrer:document.referrer?new URL(document.referrer).origin:'',allow_google_signals:false,allow_ad_personalization_signals:false});
+    var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id='+id;document.head.appendChild(s);
+  }
+  function reject(){
+    save('denied');window['ga-disable-'+id]=true;
+    if(window.gtag)window.gtag('consent','update',{analytics_storage:'denied'});
+    document.cookie.split(';').forEach(function(part){var name=part.split('=')[0].trim();if(/^_ga($|_)/.test(name)){['', ';domain='+location.hostname,';domain=.'+location.hostname].forEach(function(domain){document.cookie=name+'=;max-age=0;path=/'+domain;});}});
+    panel.hidden=true;
+  }
+  document.getElementById('analytics-accept').onclick=function(){save('granted');start();panel.hidden=true;};
+  document.getElementById('analytics-reject').onclick=reject;
+  document.getElementById('analytics-settings').onclick=function(){panel.hidden=false;};
+  document.addEventListener('click',function(event){
+    var a=event.target.closest&&event.target.closest('a[href]');
+    if(consent!=='granted'||!a||!window.gtag)return;
+    var url=new URL(a.href), merchant=url.hostname==='link.coupang.com'?'coupang':url.hostname.endsWith('.aliexpress.com')?'aliexpress':null;
+    if(!merchant)return;
+    var card=a.closest('.card'), number=card&&card.querySelector('.no');
+    window.gtag('event','product_click',{merchant:merchant,item_id:number?number.textContent.trim():'featured',transport_type:'beacon'});
+  });
+  consent=read();if(consent==='granted'){start();panel.hidden=true;}else if(consent==='denied'){panel.hidden=true;window['ga-disable-'+id]=true;}
+})();
+</script>
 <input class="srch" placeholder="🔭 아이템 검색 — 이름이나 번호를 쳐보세요" oninput="var q=this.value.trim().toLowerCase();document.querySelectorAll('.card').forEach(function(c){c.classList.toggle('hide', q && (c.getAttribute('data-q')||'').indexOf(q)<0)})">
 
-  <a class="pick" href="https://link.coupang.com/re/AFFSDP?lptag=AF4308647&amp;pageKey=9583295911&amp;itemId=28606558967&amp;vendorItemId=95550078057&amp;traceid=V0-153-bce8b4de43e0a0d8&amp;clickBeacon=ed18edd0-b632-11f1-9be4-fd9960301a1f%7E3&amp;requestid=20260922120846667313518336&amp;token=31850C%7CMIXED&amp;pt=1&amp;slot=5" target="_blank" rel="noopener sponsored">
+  <a class="pick" href="https://ko.aliexpress.com/item/1005009439479657.html" target="_blank" rel="noopener sponsored">
+    <img class="pick-img" src="https://ae-pic-a1.aliexpress-media.com/kf/S3fa31f6bcd7a454d959fc1c21e0d0fe6q.jpg_480x480q75.jpg_.avif" alt="" loading="eager" referrerpolicy="no-referrer">
     <div class="pick-txt">
       <div class="pick-tag">⭐ 우주룸 PICK</div>
-      <div class="pick-nm">주방 조리도구 정리대 바퀴 달린 다용도 냄비 뚜껑 수납함</div>
-      <div class="pick-go">쿠팡에서 보기 ›</div>
+      <div class="pick-nm">브라·속옷 나무슬링 다구멍 옷장정리행거</div>
+      <div class="pick-go">알리에서 보기 ›</div>
     </div>
   </a>
 
@@ -1940,6 +1985,14 @@ h1{font-size:23px;text-align:center;margin-bottom:3px;color:#fff}
       <span class="no">292</span>
       <span class="nm">주방 조리도구 정리대 바퀴 달린 다용도 냄비 뚜껑 수납함</span>
       <span class="go">쿠팡 ›</span>
+    </a>
+  </div>
+
+  <div class="card" data-q="293 브라·속옷 나무슬링 다구멍 옷장정리행거 옷걸이">
+    <a class="main" href="https://ko.aliexpress.com/item/1005009439479657.html" target="_blank" rel="noopener sponsored">
+      <span class="thumb"><img src="https://ae-pic-a1.aliexpress-media.com/kf/S3fa31f6bcd7a454d959fc1c21e0d0fe6q.jpg_480x480q75.jpg_.avif" alt="" loading="lazy" referrerpolicy="no-referrer"><span class="no ov">293</span></span>
+      <span class="nm">브라·속옷 나무슬링 다구멍 옷장정리행거</span>
+      <span class="go">🌏 직구 ›</span>
     </a>
   </div>
 <div class="note">🌏 는 영상에 쓰인 해외직구(알리익스프레스) 원본 상품이에요 — 더 저렴한 대신 배송이 오래 걸려요.<br>영상 속 제품과 같은 기능의 추천 제품이며, 가격은 변동될 수 있어요.</div>
